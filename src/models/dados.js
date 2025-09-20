@@ -10,7 +10,7 @@ const obrasDeArte = [
     // Regra 3: Status da obra. A API pode ter regras como "só mostrar disponíveis".
     status: "Em Exposição",
     // Regra 4: Destaque. Permite criar uma rota separada para obras em destaque.
-    destaque: true,
+    destaque: "sim",
     valor: 150000000,
     // Regra 5: Avaliações. A API pode receber novas avaliações e calcular uma nota média.
     avaliacoes: [
@@ -32,7 +32,7 @@ const obrasDeArte = [
     ano: 1937,
     estilo: "Cubismo",
     status: "Em Exposição",
-    destaque: true,
+    destaque: "sim",
     valor: 200000000,
     avaliacoes: [
       { nota: 5, comentario: "Poderosa e emocionante." },
@@ -52,7 +52,7 @@ const obrasDeArte = [
     ano: 1665,
     estilo: "Barroco",
     status: "Vendido",
-    destaque: false,
+    destaque: "não",
     valor: 80000000,
     avaliacoes: [
       { nota: 4, comentario: "Detalhes impressionantes." },
@@ -72,7 +72,7 @@ const obrasDeArte = [
     ano: 1893,
     estilo: "Expressionismo",
     status: "Disponível",
-    destaque: true,
+    destaque: "sim",
     valor: 119900000,
     avaliacoes: [{ nota: 5, comentario: "Icônico!" }],
     dimensoes: {
@@ -89,7 +89,7 @@ const obrasDeArte = [
     ano: 1486,
     estilo: "Renascimento",
     status: "Em Exposição",
-    destaque: false,
+    destaque: "nao",
     valor: 10000000,
     avaliacoes: [], // Regra 7: Obras sem avaliações
     dimensoes: {

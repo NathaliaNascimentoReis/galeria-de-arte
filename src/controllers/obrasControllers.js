@@ -43,7 +43,8 @@ const createObra = (req, res) => {
     !titulo ||
     !estilo ||
     !status ||
-    !destaque ||
+    destaque === null ||
+    destaque === undefined ||
     !valor ||
     !dimensoes ||
     !urlImagem
@@ -64,7 +65,7 @@ const createObra = (req, res) => {
     "disponível",
   ];
 
-  if (!statusLista){
+  if (!statusLista.includes(statusFormatado)) {
     return res.status(400).json({
       success: false,
       message:
