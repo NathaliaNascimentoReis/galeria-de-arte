@@ -86,7 +86,9 @@ const createObra = (req, res) => {
   }
 
   const obraExistente = obrasDeArte.some(
-    (obra) => obra.titulo === titulo && obra.artista === artista
+    (obra) =>
+      obra.titulo.toLowerCase() === titulo.toLowerCase() &&
+      obra.artista.toLowerCase() === artista.toLowerCase()
   );
 
   if (obraExistente) {
@@ -121,4 +123,23 @@ const createObra = (req, res) => {
   });
 };
 
-export { getAllObras, getObrasById, createObra };
+const deleteObra = (req, res) => {
+  let id = parseInt(req.params.id);
+
+  const obra = obrasDeArte.find((o) => o.id === id);
+
+  if (obra) {
+    return res.status(200).json({
+      success: true,
+      message: `ID ${id} deletado com sucesso.`,
+      obraRemovida: obra
+    });
+  }
+
+  return res.status(400).json({
+    success: false,
+    message: `ID ${id} não existe.`,
+  });
+};
+
+export { getAllObras, getObrasById, createObra, deleteObra };
