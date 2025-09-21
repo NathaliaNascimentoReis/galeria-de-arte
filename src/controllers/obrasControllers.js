@@ -132,7 +132,7 @@ const deleteObra = (req, res) => {
     return res.status(200).json({
       success: true,
       message: `ID ${id} deletado com sucesso.`,
-      obraRemovida: obra
+      obraRemovida: obra,
     });
   }
 
@@ -142,4 +142,48 @@ const deleteObra = (req, res) => {
   });
 };
 
-export { getAllObras, getObrasById, createObra, deleteObra };
+const updateObra = (req, res) => {
+  const id = parseInt(req.paramss.id);
+
+  const {
+    titulo,
+    artista,
+    ano,
+    estilo,
+    status,
+    destaque,
+    valor,
+    dimensoes,
+    urlImagem,
+  } = req.body;
+
+  const obraParaAtualizar = obrasDeArte.find((obra) => obra.id === idNumerico);
+
+  // 4. Se a obra não for encontrada, retorna um erro 404
+  if (!obraParaAtualizar) {
+    return res.status(404).json({
+      success: false,
+      message: "Obra de arte não encontrada.",
+    });
+  }
+
+  // 5. Se a obra for encontrada, atualiza os dados
+  if (titulo) obraParaAtualizar.titulo = titulo;
+  if (artista) obraParaAtualizar.artista = artista;
+  if (ano) obraParaAtualizar.ano = ano;
+  if (estilo) obraParaAtualizar.estilo = estilo;
+  if (status) obraParaAtualizar.status = status;
+  if (destaque) obraParaAtualizar.destaque = destaque;
+  if (valor) obraParaAtualizar.valor = valor;
+  if (dimensoes) obraParaAtualizar.dimensoes = dimensoes;
+  if (urlImagem) obraParaAtualizar.urlImagem = urlImagem;
+
+  // 6. Retorna a obra atualizada com sucesso
+  res.status(200).json({
+    success: true,
+    message: "Obra de arte atualizada com sucesso!",
+    obraAtualizada: obraParaAtualizar,
+  });
+};
+
+export { getAllObras, getObrasById, createObra, deleteObra, updateObra };
