@@ -143,7 +143,7 @@ const deleteObra = (req, res) => {
 };
 
 const updateObra = (req, res) => {
-  const id = parseInt(req.paramss.id);
+  const id = parseInt(req.params.id);
 
   const {
     titulo,
@@ -157,28 +157,36 @@ const updateObra = (req, res) => {
     urlImagem,
   } = req.body;
 
-  const obraParaAtualizar = obrasDeArte.find((obra) => obra.id === idNumerico);
+  const obraParaAtualizar = obrasDeArte.find((obra) => obra.id === id);
 
-  // 4. Se a obra não for encontrada, retorna um erro 404
+  // Se a obra não for encontrada, retorna um erro 404
   if (!obraParaAtualizar) {
     return res.status(404).json({
       success: false,
-      message: "Obra de arte não encontrada.",
+      message: "Essa obra de arte não existe.",
     });
   }
 
-  // 5. Se a obra for encontrada, atualiza os dados
-  if (titulo) obraParaAtualizar.titulo = titulo;
-  if (artista) obraParaAtualizar.artista = artista;
-  if (ano) obraParaAtualizar.ano = ano;
-  if (estilo) obraParaAtualizar.estilo = estilo;
-  if (status) obraParaAtualizar.status = status;
-  if (destaque) obraParaAtualizar.destaque = destaque;
-  if (valor) obraParaAtualizar.valor = valor;
-  if (dimensoes) obraParaAtualizar.dimensoes = dimensoes;
-  if (urlImagem) obraParaAtualizar.urlImagem = urlImagem;
+  // Se a obra for encontrada, atualiza os dados
+  const obraAtualizada = obrasDeArte.map((obra) => {
+    return obra.id === id
+      ? {
+          ...obra,
+          ...(titulo !== undefined && { titulo }),
+          ...(artista !== undefined && { artista }),
+          ...(ano !== undefined && { ano }),
+          ...(estilo !== undefined && { estilo }),
+          ...(status !== undefined && { status }),
+          ...(destaque !== undefined && { destaque }),
+          ...(valor !== undefined && { valor }),
+          ...(dimensoes !== undefined && { dimensoes }),
+          ...(urlImagem !== undefined && { urlImagem }),
+        }
+      : obra;
+  });
 
-  // 6. Retorna a obra atualizada com sucesso
+  obrasDeArte[id] = obraAtualizada;
+
   res.status(200).json({
     success: true,
     message: "Obra de arte atualizada com sucesso!",
